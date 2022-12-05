@@ -20,15 +20,23 @@ to produce a picture of the profiling. Note that eventhough named gprof, runs ca
 Sandbox allows user to generate random integer matricies of desired size with elements between desired range, and calculate the hermite form
 
 Sandbox has commands
+    
     -"q"  which quits the program
+    
     -"r <rows> <columns>" were rows and colums are > 0 integers. Generates random integer matrix of size rowsxcolums and prints it to std out
+    
     -"s <range>" were range is > 1. And then the elements are from range -range to +range. 
+    
     -"h" calculates and displays hermite form of most recent matrix.
+    
     -"f <format>" changes matrix print format. Options are "r" for human readable, "m" for matlab format, "w" for wolfram alpha format
+    
     -ALL commands are whitespace and case sensitive
 
 ./run_sandbox.sh
+    
 ./run_test.sh
+    
 ./run_grpof.sh
 
 Respectfully to run programs. Requires g++, valgrind, graphivz, python3 and make in path. Linux OS.
