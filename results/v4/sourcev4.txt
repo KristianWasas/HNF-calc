@@ -1,0 +1,57 @@
+------------
+Same as v3, but Ui is created for the matrix constructor, and 
+MxM multiplication is streamline Even more. Only two temp int storages
+and loo
+-------------------
+//Variable for 
+int* xy = (int*)malloc(sizeof(int)*2);
+hermiteCalculated = true;
+for(int j=0; j<colums; j++){
+    for(int i=rows-1; i>j; i--){
+        //Reset ui to identity matrix
+        //Note that this way we get O(1) complexity for reseting Ui
+        //Could reset all 3 diags so no if statements, perhaps faster in practice but
+        //O(n) complexity
+        if(i != rows-1){
+            Ui[i][i] = 1;
+            Ui[i+1][i] = 0;
+            Ui[i][i+1] = 0;
+            Ui[i+1][i+1] = 1;
+        }else if(j != 0){
+            Ui[j-1][j-1] = 1;
+            Ui[j-1][j] = 0;
+            Ui[j][j-1] = 0;
+            Ui[j][j] = 1; 
+        }
+        //First handle the cases were one of the elements is 0, since then its just a premutation matrix
+        //And doing Diophantes equation/gcd is kinda wonky behaviour with 0
+        //Nothing, since the element we are trying to change to 0 is already 0
+        if(H[i][j] == 0){
+        //The case that Ui would jsut be a permutation matrix of rows j and j-1
+        }else if(H[i-1][j] == 0){
+            Ui[i][i] = 0;
+            Ui[i-1][i] = 1;
+            Ui[i][i-1] = 1;
+            Ui[i-1][i-1] = 0;
+        //And the base case as in the lecture notes
+        }else{
+            //Calculate values to go into Ui
+            int a = H[i-1][j];
+            int b = H[i][j];
+            int g = std::__gcd(a, b);
+            DioSolv(a, b, g, xy); 
+            int alpha = a/g;
+            int beta  = b/g;
+
+            //Update Ui
+            Ui[i][i] = alpha;
+            Ui[i][i-1] = -beta;
+            Ui[i-1][i] = xy[1];
+            Ui[i-1][i-1] = xy[0];
+        }
+        //Calculate new H and U for tracking, note that H and U are replaced with new values
+        MxM(Ui, rows, rows, H, rows, colums, i, j);
+        MxM(Ui, rows, rows, U, rows, rows, i, j);
+    }
+}
+free(xy);
