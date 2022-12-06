@@ -3,8 +3,12 @@
 
 #include <benchmark/benchmark.h>
 
+//Define true if you wish elemnts to be 1 and -1, else they are between -range to range
+#define ONES !true
+
 #include "src/matrix.cpp"
 #include "src/hermite.cpp"
+
 
 int main(){
     srand (time(NULL));
@@ -139,7 +143,7 @@ int main(){
             break;
         }
         if(invalidInput){
-            printf("INVALID INPUT\n");
+            printf("INVALID INPUT \n");
         }
     }
     return 0;

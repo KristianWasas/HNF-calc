@@ -23,10 +23,13 @@ Matrix::Matrix(int n, int m, int elementRange){
         //Generate random floats/ints between -100 and 100 for the matrix
         for(int j=0; j<colums; j++){
             float a = (float)(rand()) / (float)(RAND_MAX);
-            //int b = a * 2.f + 1;
-            //int c = b*2 - 3;
-            //elements[i][j] = (int)(c);       //Just for generating matrix with -1 and 1 elements for testing
-            elements[i][j] = (int)((a) * (float)(2*elementRange) - (float)(elementRange));
+            #if ONES
+                int b = a * 2.f + 1;
+                int c = b*2 - 3;
+                elements[i][j] = (int)(c);       //Just for generating matrix with -1 and 1 elements for testing
+            #else
+                elements[i][j] = (int)((a) * (float)(2*elementRange) - (float)(elementRange));
+            #endif
             H[i][j] = elements[i][j];
         }
         for(int j=0; j<rows; j++){

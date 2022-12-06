@@ -19,11 +19,13 @@ void Matrix::hermite(){
                 //And doing Diophantes equation/gcd is kinda wonky behaviour with 0
                 //Nothing, since the element we are trying to change to 0 is already 0
                 if(H[i][j] == 0){
+                    continue;
                 //The case that Ui would jsut be a permutation matrix of rows j and j-1
+                //Note the 2x2 matrix has to have det = 1, hence the -1
                 }else if(H[i-1][j] == 0){
                     Ui[i][i] = 0;
                     Ui[i-1][i] = 1;
-                    Ui[i][i-1] = 1;
+                    Ui[i][i-1] = -1;
                     Ui[i-1][i-1] = 0;
                 //And the base case as in the lecture notes
                 }else{
@@ -81,7 +83,7 @@ void DioSolv(int a, int b, int c, int* xy){
 
 //Note that the matrix B is updated
 void MxM(int** A, int a_rows, int a_colums, int** B, int b_rows, int b_colums, int i_row){
-    /*
+    
     //The only elements that are relevant for the multiplication
     int a11 = A[i_row-1][i_row-1];
     int a12 = A[i_row-1][i_row];
@@ -94,7 +96,7 @@ void MxM(int** A, int a_rows, int a_colums, int** B, int b_rows, int b_colums, i
         B[i_row-1][j] = a11*temp1+a12*temp2;
         B[i_row][j] = a21*temp1+a22*temp2;
     }
-    */
+    /*
     //Naive multiplication implementation
     int** C = (int**)malloc(sizeof(int*)*a_rows);
     for(int i=0; i<a_rows; i++){
@@ -114,5 +116,5 @@ void MxM(int** A, int a_rows, int a_colums, int** B, int b_rows, int b_colums, i
         free(C[i]);
     }
     free(C);
-
+    */
 }
